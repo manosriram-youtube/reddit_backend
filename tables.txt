@@ -1,0 +1,33 @@
+create table comments (
+    id serial primary key,
+    post_id int references posts(id),
+    comment varchar(256)
+);
+
+create table posts (
+    id serial primary key,
+    title varchar(64),
+    description text,
+    author int references users(id),
+    likes int default 0,
+    subreddit_id int references subreddits(id)
+);
+
+create table users (
+    id serial primary key,
+    email varchar(32),
+    password varchar(128),
+    username varchar(16)
+);
+
+create table subreddits (
+    id serial primary key,
+    name varchar(32),
+    description varchar(64)
+);
+
+create table subreddit_users (
+    subreddit_id integer references subreddits(id),
+    user_id integer references users(id),
+    primary key (subreddit_id, user_id)
+);
