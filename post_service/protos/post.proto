@@ -1,0 +1,64 @@
+syntax = 'proto3';
+
+message Post {
+    string title = 1;
+    string description = 2;
+    int32 subreddit_id = 3;
+    int32 author = 4;
+    int32 id = 5;
+    int32 likes = 6;
+}
+
+message CreatePostRequest {
+    Post post = 1;
+}
+
+message CreatePostResponse {
+    int32 id = 1;
+}
+
+message GetPostRequest {
+    int32 id = 1;
+}
+
+message GetPostResponse {
+    Post post = 1;
+    repeated string comments = 2;
+}
+
+message UpdatePostRequest {
+    int32 id = 1;
+    int32 user_id = 2;
+    Post post = 3;
+}
+
+message UpdatePostResponse {
+    int32 id = 1;
+}
+
+message LikePostRequest {
+    int32 id = 1;
+    int32 user_id = 2;
+}
+
+message LikePostResponse {
+    int32 id = 1;
+}
+
+message CommentPostRequest {
+    int32 id = 1;
+    int32 user_id = 2;
+    string comment = 3;
+}
+
+message CommentPostResponse {
+    int32 id = 1;
+}
+
+service PostService {
+    rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {};
+    rpc GetPost(GetPostRequest) returns (GetPostResponse) {};
+    rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse) {};
+    rpc LikePost(LikePostRequest) returns (LikePostResponse) {};
+    rpc CommentPost(CommentPostRequest) returns (CommentPostResponse) {};
+}
